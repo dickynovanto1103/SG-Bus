@@ -18,8 +18,8 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	//
 	//call the API here
 	accountKey := os.Getenv("accountkey")
-	callBusAPI("http://datamall2.mytransport.sg/ltaodataservice/BusArrivalv2?BusStopCode=83139", accountKey)
-	callBusAPI("http://datamall2.mytransport.sg/ltaodataservice/BusStops", accountKey)
+	callBusAPI("http://datamall2.mytransport.sg/ltaodataservice/BusArrivalv2?BusStopCode=19091", accountKey)
+	//callBusAPI("http://datamall2.mytransport.sg/ltaodataservice/BusStops", accountKey)
 }
 
 func callBusAPI(url, accountKey string) {
@@ -32,7 +32,6 @@ func callBusAPI(url, accountKey string) {
 	req.Header.Add("AccountKey", accountKey)
 	req.Header.Add("accept", "application/json")
 	res, err := client.Do(req)
-	//res, err := http.Post(url, "application/json", bytes.NewReader(jsonBody))
 	if err != nil {
 		log.Println("error http get, err: ", err)
 		return
@@ -49,6 +48,6 @@ func callBusAPI(url, accountKey string) {
 
 func main() {
 	mux := http.NewServeMux()
-	mux.HandleFunc("/", handler)
+	mux.HandleFunc("/nextBusStop", handler)
 	log.Fatal(http.ListenAndServe(":8080", mux))
 }
