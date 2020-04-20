@@ -9,10 +9,13 @@ import (
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
+	busStopCode := r.FormValue("busStopCode")
+	log.Println("busStopCode: ", busStopCode)
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	//call the API here
 	accountKey := os.Getenv("accountkey")
-	res := callBusAPI("http://datamall2.mytransport.sg/ltaodataservice/BusArrivalv2?BusStopCode=19091", accountKey)
+	url := fmt.Sprintf("http://datamall2.mytransport.sg/ltaodataservice/BusArrivalv2?BusStopCode=%v", busStopCode)
+	res := callBusAPI(url, accountKey)
 	//callBusAPI("http://datamall2.mytransport.sg/ltaodataservice/BusStops", accountKey)
 	bytes, err := w.Write(res)
 	if err != nil {
