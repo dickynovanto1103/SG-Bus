@@ -10,13 +10,6 @@ import (
 
 func handler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
-	//byte, err := w.Write([]byte("halo"))
-	//if err != nil {
-	//	fmt.Println("error: ", err)
-	//	return
-	//}
-	//log.Println("byte", byte, "written")
-	//
 	//call the API here
 	accountKey := os.Getenv("accountkey")
 	res := callBusAPI("http://datamall2.mytransport.sg/ltaodataservice/BusArrivalv2?BusStopCode=19091", accountKey)
@@ -57,5 +50,5 @@ func callBusAPI(url, accountKey string) []byte {
 func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/nextBusStop", handler)
-	log.Fatal(http.ListenAndServe(":8080", mux))
+	log.Fatal(http.ListenAndServe(":8081", mux))
 }
