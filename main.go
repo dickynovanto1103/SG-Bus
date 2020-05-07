@@ -53,5 +53,6 @@ func callBusAPI(url, accountKey string) []byte {
 func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/nextBusStop", handler)
-	log.Fatal(http.ListenAndServe(":8081", mux))
+	log.Println("serving at 8082")
+	log.Fatal(http.ListenAndServe(":8082", mux))
 }
