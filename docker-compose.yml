@@ -1,0 +1,7 @@
+version: "3"
+
+services:
+  sg-bus-backend:
+    build: .
+    ports:
+      - "8082:8082"
