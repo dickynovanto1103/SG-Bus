@@ -9,12 +9,13 @@ import (
 	"github.com/joho/godotenv"
 )
 
+var accountKey string
+
 func handler(w http.ResponseWriter, r *http.Request) {
 	busStopCode := r.FormValue("busStopCode")
 	log.Println("busStopCode: ", busStopCode)
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 
-	accountKey := getAccountKey()
 	url := fmt.Sprintf("http://datamall2.mytransport.sg/ltaodataservice/BusArrivalv2?BusStopCode=%v", busStopCode)
 	res := callBusAPI(url, accountKey)
 	//callBusAPI("http://datamall2.mytransport.sg/ltaodataservice/BusStops", accountKey)
@@ -59,6 +60,8 @@ func callBusAPI(url, accountKey string) []byte {
 func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/nextBusStop", handler)
+
+	accountKey = getAccountKey()
 	log.Println("serving at 8082")
 	log.Fatal(http.ListenAndServe(":8082", mux))
 }

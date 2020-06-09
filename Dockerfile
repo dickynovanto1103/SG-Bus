@@ -1,10 +1,11 @@
 FROM golang
 
 WORKDIR /go/src
-COPY go.mod .
+COPY go.* ./
 RUN go mod download
 
-COPY . .
+COPY main.go .
 RUN go build main.go
+
 EXPOSE 8082
 CMD ["./main"]

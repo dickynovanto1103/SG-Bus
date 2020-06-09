@@ -2,6 +2,8 @@ version: "3"
 
 services:
   sg-bus-backend:
+    env_file:
+      - .env
     build: .
     ports:
       - "8082:8082"
