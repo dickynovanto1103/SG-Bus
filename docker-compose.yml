@@ -2,8 +2,15 @@ version: "3"
 
 services:
   sg-bus-backend:
+    container_name: sg-bus-backend
     env_file:
       - .env
+    networks:
+      - sg-bus
     build: .
     ports:
       - "8082:8082"
+
+networks:
+  sg-bus:
+    external: true
